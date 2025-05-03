@@ -8,25 +8,25 @@
 import SwiftUI
 
 struct HabitView: View {
-    let name : String
-    let description : String
-    var count : Int
+    @Binding var habits : [Habit]
+    var currentHabitIdx : Int
+    
     var body: some View {
         VStack {
-            Text(name)
+            Text(habits[currentHabitIdx].name)
                 .font(.largeTitle)
-            Text(description)
+            Text(habits[currentHabitIdx].description)
             HStack {
                 Button {
-                    //TODO: DECREASE COUNT ACTION
+                    habits[currentHabitIdx].completionCount -= 1
                 } label: {
                     Image(systemName: "arrowshape.down.fill")
                         .foregroundColor(.red)
                     
                 }
-                Text("\(count)")
+                Text("\(habits[currentHabitIdx].completionCount)")
                 Button {
-                    //TODO: DECREASE COUNT ACTION
+                    habits[currentHabitIdx].completionCount += 1
                 } label: {
                     Image(systemName: "arrowshape.up.fill")
                         .foregroundColor(.green)
@@ -37,5 +37,6 @@ struct HabitView: View {
 }
 
 #Preview {
-    HabitView(name: "Water", description: "Drink IT!", count: 50)
+    @Previewable @StateObject var habitManager = Tracker()
+    HabitView(habits: $habitManager.allHabits, currentHabitIdx: 1)
 }

@@ -16,8 +16,9 @@ struct ContentView: View {
                 List(habitManager.allHabits){ habit in
                     NavigationLink("\(habit.name) - \(habit.completionCount)", value: habit.id)
                 }.navigationDestination(for: UUID.self){ selection in
-                    //TODO: Use HabitView, maybe need to create initializer to take habitview and get/set the data within the initializer.
-                    Text(habitManager.allHabits.first{$0.id == selection}?.description ?? "Error")
+                    HabitView(habits: $habitManager.allHabits, currentHabitIdx: habitManager.allHabits.firstIndex(where: {
+                        $0.id == selection
+                    })!)
                 }
             }
             .navigationTitle("Habits")
