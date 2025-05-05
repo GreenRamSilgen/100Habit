@@ -14,7 +14,7 @@ struct ContentView: View {
         NavigationStack{
             VStack {
                 List(habitManager.allHabits){ habit in
-                    NavigationLink("\(habit.name) - \(habit.completionCount)", value: habit.id)
+                    NavigationLink("\(habit.name) : \(habit.completionCount)", value: habit.id)
                 }.navigationDestination(for: UUID.self){ selection in
                     HabitView(habits: $habitManager.allHabits, currentHabitIdx: habitManager.allHabits.firstIndex(where: {
                         $0.id == selection
